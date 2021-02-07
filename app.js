@@ -43,4 +43,9 @@ function deleteCheck(e){
         const todo = item.parentElement;
         todo.remove();
     }
+    //CHECK MARKS
+    if(item.classList[0] === "complete-btn") {
+        const todo = item.parentElement;
+        todo.classList.toggle('completed');
+    }
 }
