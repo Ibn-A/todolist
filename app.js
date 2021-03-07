@@ -3,13 +3,21 @@ const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
 const filterOption = document.querySelector('.filter-todo');
-
+const dropdownList = document.querySelector('.custom-select-wrapper');
 //Events listeners
 todoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteCheck);
 filterOption.addEventListener('click', filterTodo);
-//Functions
+dropdownList.addEventListener('click', dropdown);
+   /* to allow closing dropdown list, if user clicks out of dropdown.*/
+window.addEventListener('click', function(e) {
+    const select = document.querySelector('.custom-select')
+    if (!select.contains(e.target)) {
+        select.classList.remove('open');
+    }
+});
 
+//Functions
 function addTodo(event){
     //Prevent form from submitting
     event.preventDefault();
@@ -52,6 +60,19 @@ function deleteCheck(e){
     if(item.classList[0] === "complete-btn") {
         const todo = item.parentElement;
         todo.classList.toggle('completed');
+    }
+}
+/* select filter option */
+function dropdown(e){
+    this.querySelector('.custom-select').classList.toggle('open');
+    for (const option of document.querySelectorAll(".custom-option")) {
+        option.addEventListener('click', function() {
+            if (!this.classList.contains('selected')) {
+                this.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
+                this.classList.add('selected');
+                this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent;
+            }
+        })
     }
 }
 
