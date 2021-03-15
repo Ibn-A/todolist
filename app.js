@@ -4,11 +4,13 @@ const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
 const filterOption = document.querySelector('.filter-todo');
 const dropdownList = document.querySelector('.custom-select-wrapper');
+const filterList = document.querySelector('.custom-options');
 //Events listeners
 todoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteCheck);
 filterOption.addEventListener('click', filterTodo);
 dropdownList.addEventListener('click', dropdown);
+filterList.addEventListener('click', filter);
    /* to allow closing dropdown list, if user clicks out of dropdown.*/
 window.addEventListener('click', function(e) {
     const select = document.querySelector('.custom-select')
@@ -76,8 +78,37 @@ function dropdown(e){
     }
 }
 
+/** filter function by categories */
+function filter(e) {
+    const todos = todoList.childNodes;
+    console.log(todos);
+    todos.forEach(function(todo){
+        cible = e.target.getAttribute('data-value');
+        switch(cible){
+            case "all":
+                todo.style.display="flex";
+                break;
+            case "completed":
+                if(todo.classList.contains('completed')){
+                    todo.style.display = "flex";
+                }else{
+                    todo.style.display = "none";
+                }
+                break;
+            case "uncompleted":
+                if(!todo.classList.contains('completed')){
+                    todo.style.display = "flex";
+                }else{
+                    todo.style.display = "none";
+                }
+                break;
+        }
+    });
+}
+
 function filterTodo(e){
     const todos = todoList.childNodes;
+    console.log(todos);
     todos.forEach(function(todo){
         switch(e.target.value){
             case "all":
