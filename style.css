@@ -55,6 +55,9 @@ form input, form button{
     border: none;
     background: white;
 }
+form input{
+    min-width: 40%;
+}
 
 form button{
     color: #d88771;
@@ -150,6 +153,7 @@ select{
 /* new custom select style*/
 
 .custom-select-wrapper {
+    margin: 2rem;
     position: relative;
     user-select: none;
     width: 12rem;
